@@ -1,0 +1,5 @@
+interactive-py-steamcmd-wrapper @ git+https://github.com/Wojtini/Interactive-SteamCMD-Wrapper
+click
+bs4
+steam_totp
+retry
