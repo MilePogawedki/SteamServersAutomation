@@ -32,9 +32,14 @@ class Arma3HtmlModParser:
 
     @staticmethod
     def _get_mod_id_from_row(html_row: Tag) -> int:
-        return Arma3HtmlModParser._get_id_from_href(
-            html_row.find_next("a").get("href")
-        )
+        if (
+            (mod_link := html_row.find_next("a"))
+            and isinstance(mod_link, Tag)
+            and (href := mod_link.get("href"))
+            and isinstance(href, str)
+        ):
+            return Arma3HtmlModParser._get_id_from_href(href)
+        raise Exception("Broken Arma3 HTML file")
 
     @staticmethod
     def _get_id_from_href(href: str) -> int:
@@ -42,4 +47,6 @@ class Arma3HtmlModParser:
 
     @staticmethod
     def _get_mod_name_from_row(html_row: Tag) -> str:
-        return html_row.find_next("td").text.lower()
+        if row := html_row.find_next("td"):
+            return row.text.lower()
+        raise Exception("Broken Arma3 HTML file")
