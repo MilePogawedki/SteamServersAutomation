@@ -4,8 +4,8 @@ from typing import List
 
 from interactive_steamcmd_wrapper import ISteamCMDProcess, InteractiveSteamCMD
 
-from common.steam_credentials import STEAM_CREDENTIALS, get_token
-from common.workshopmod import WorkshopMod
+from steam_server_manager.common.steam_credentials import STEAM_CREDENTIALS, get_token
+from steam_server_manager.common.workshopmod import WorkshopMod
 
 
 class SteamGameServer(ABC):

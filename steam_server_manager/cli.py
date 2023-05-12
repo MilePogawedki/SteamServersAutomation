@@ -1,7 +1,7 @@
 import logging
 
 import click
-from interactive_steamcmd_wrapper import InteractiveSteamCMD, SteamCMDAlreadyInstalled
+from interactive_steamcmd_wrapper import InteractiveSteamCMD, ISteamCMDAlreadyInstalled
 
 from steam_server_manager.game_servers.arma_3_server.main import run_arma_3_server_updater
 from steam_server_manager.game_servers.arma_3_server.main import run_arma_3_mods_updater
@@ -20,7 +20,7 @@ def cmd():
 def install_steam():
     try:
         get_isteam().install()
-    except SteamCMDAlreadyInstalled:
+    except ISteamCMDAlreadyInstalled:
         pass
 
 

@@ -2,7 +2,7 @@ from typing import List
 
 from interactive_steamcmd_wrapper import InteractiveSteamCMD
 
-from common.workshopmod import WorkshopMod
+from steam_server_manager.common.workshopmod import WorkshopMod
 from steam_server_manager.game_servers.game_server_abstraction.game_server import SteamGameServer
 
 
