@@ -1,9 +1,10 @@
 import os
+import logging
 
 from steam_totp import generate_twofactor_code_for_time
 
 if not os.environ["STEAM_USERPASS"]:
-    raise Exception("No credentials in env variables STEAM_USERPASS (ex. 'user,pass')")
+    logging.getLogger("steam_credentials").warning("No credentials in env variables STEAM_USERPASS (ex. 'user,pass')")
 
 STEAM_CREDENTIALS = tuple(os.environ["STEAM_USERPASS"].split(":"))
 SECRET = os.environ["FA_SECRET"]
