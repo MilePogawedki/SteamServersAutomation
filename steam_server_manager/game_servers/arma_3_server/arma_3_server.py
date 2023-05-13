@@ -1,4 +1,4 @@
-from typing import List
+from typing import Dict
 
 from interactive_steamcmd_wrapper import InteractiveSteamCMD
 
@@ -23,9 +23,10 @@ class Arma3Server(SteamGameServer):
     ):
         super().__init__(steam_installer, app_install_dir, mods_install_dir)
 
-    def prepare_bash_file(self, mods: List[WorkshopMod]) -> None:
+    @staticmethod
+    def prepare_bash_file(mods: Dict[int, WorkshopMod]) -> None:
         file: str = "/home/steam/run_arma3_server.sh"
-        mod_string = (f"""mods/{mod.simplified_mod_name};""" for mod in mods)
+        mod_string = (f"""mods/{mod.simplified_mod_name};""" for mod in mods.values())
         with open(file) as run_file:
             run_file.write(
                 "/home/steam/steamapps/arma_3_server/arma3server"

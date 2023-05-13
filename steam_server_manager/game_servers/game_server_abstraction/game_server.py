@@ -1,7 +1,7 @@
 import logging
 import os
 from abc import ABC, abstractmethod
-from typing import List, Dict
+from typing import Dict
 
 from interactive_steamcmd_wrapper import ISteamCMDProcess, InteractiveSteamCMD
 
@@ -71,6 +71,7 @@ class SteamGameServer(ABC):
             self.logger.info("Adding a symlink between from <%s> to <%s>", source, target)
             os.symlink(source, target)
 
+    @staticmethod
     @abstractmethod
-    def prepare_bash_file(self, mods: List[WorkshopMod]) -> None:
+    def prepare_bash_file(mods: Dict[int, WorkshopMod]) -> None:
         ...

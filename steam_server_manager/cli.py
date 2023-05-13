@@ -3,7 +3,7 @@ import logging
 import click
 from interactive_steamcmd_wrapper import InteractiveSteamCMD, ISteamCMDAlreadyInstalled
 
-from steam_server_manager.game_servers.arma_3_server.main import run_arma_3_server_updater
+from steam_server_manager.game_servers.arma_3_server.main import run_arma_3_server_updater, run_create_bash_file
 from steam_server_manager.game_servers.arma_3_server.main import run_arma_3_mods_updater
 
 
@@ -32,3 +32,8 @@ def install_arma_3_server():
 @cmd.command()
 def install_arma_3_mods():
     run_arma_3_mods_updater(get_isteam())
+
+
+@cmd.command()
+def prepare_bash_file():
+    run_create_bash_file(get_isteam())

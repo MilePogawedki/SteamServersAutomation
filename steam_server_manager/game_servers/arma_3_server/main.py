@@ -17,3 +17,11 @@ def run_arma_3_mods_updater(isteam: InteractiveSteamCMD):
         raw_html = file.read()
     mods_dict = Arma3HtmlModParser(raw_html).get_mods_list()
     server.update_workshop_mods(mods_dict)
+
+
+def run_create_bash_file(isteam: InteractiveSteamCMD):
+    server = Arma3Server(isteam)
+    with open(os.path.join(os.getcwd(), "a3mods.html"), "r") as file:
+        raw_html = file.read()
+    mods_dict = Arma3HtmlModParser(raw_html).get_mods_list()
+    server.prepare_bash_file(mods_dict)
