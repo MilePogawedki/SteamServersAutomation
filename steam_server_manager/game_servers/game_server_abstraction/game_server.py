@@ -69,7 +69,10 @@ class SteamGameServer(ABC):
             source = os.path.join(location, filename)
             target = os.path.join(local_mods_path, mods[int(filename)].simplified_mod_name)
             self.logger.info("Adding a symlink between from <%s> to <%s>", source, target)
-            os.symlink(source, target)
+            try:
+                os.symlink(source, target)
+            except FileExistsError:
+                self.logger.info("Link exists")
 
     @staticmethod
     @abstractmethod

@@ -36,4 +36,4 @@ def install_arma_3_mods():
 
 @cmd.command()
 def prepare_bash_file():
-    run_create_bash_file(get_isteam())
+    run_create_bash_file()
