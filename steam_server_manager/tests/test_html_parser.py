@@ -1,11 +1,12 @@
-import pytest
+import os
 
-from game_servers.arma_3_server.arma_3_html_mod_parser import Arma3HtmlModParser
+from steam_server_manager.game_servers.arma_3_server.arma_3_html_mod_parser import Arma3HtmlModParser
 
 
 class TestHtmlModParser:
     def test_parsing(self):
-        with open("a3mods.html", "r") as file:
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        with open(os.path.join(dir_path, "test_a3mods.html"), "r") as file:
             raw_html = file.read()
         parser = Arma3HtmlModParser(raw_html)
         id_list = [
