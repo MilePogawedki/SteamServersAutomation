@@ -25,9 +25,10 @@ class Arma3Server(SteamGameServer):
 
     def prepare_bash_file(self, mods: List[WorkshopMod]) -> None:
         file: str = "/home/steam/run_arma3_server.sh"
+        mod_string = (f"""mods/{mod.simplified_mod_name};""" for mod in mods)
         with open(file) as run_file:
             run_file.write(
                 "/home/steam/steamapps/arma_3_server/arma3server"
                 " -name=server -config=server.cfg"
-                " -mod=/home/steam/steamapps/workshop/content/107410/450814997"
+                f" -mod={mod_string}"
             )
