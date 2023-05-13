@@ -60,12 +60,17 @@ class SteamGameServer(ABC):
         os.system("find" + location + " -depth -exec rename 's/(.*)\\/([^\\/]*)/$1\\/\\L$2/' {} \\;")
 
     def _symlink_all_mods(self, mods: Dict[int, WorkshopMod]):
+        local_mods_path = os.path.join(self.app_install_dir, "mods")
+        if not(os.path.exists(local_mods_path) and os.path.isdir(local_mods_path)):
+            os.mkdir(os.path.join(local_mods_path))
+
         location = "/home/steam/steamapps/workshop/content/107410/"
         for filename in os.listdir(location):
             os.symlink(
                 os.path.join(location, filename),
-                os.path.join(self.app_install_dir, "mods", mods[int(filename)].mod_name),
+                os.path.join(local_mods_path, mods[int(filename)].mod_name),
             )
+
 
     @abstractmethod
     def prepare_bash_file(self, mods: List[WorkshopMod]) -> None:
