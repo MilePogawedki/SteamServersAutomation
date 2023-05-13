@@ -58,5 +58,14 @@ pipeline {
 			}
 		}
 
+		stage('Prepare bash file') {
+			steps {
+				sh """
+					. venv/bin/activate
+					python3 -m steam_server_manager prepare-bash-file
+				"""
+			}
+		}
+
     }
 }
