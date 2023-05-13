@@ -24,4 +24,10 @@ class Arma3Server(SteamGameServer):
         super().__init__(steam_installer, app_install_dir, mods_install_dir)
 
     def prepare_bash_file(self, mods: List[WorkshopMod]) -> None:
-        raise NotImplementedError
+        file: str = "/home/steam/run_arma3_server.sh"
+        with open(file) as run_file:
+            run_file.write(
+                "/home/steam/steamapps/arma_3_server/arma3server"
+                " -name=server -config=server.cfg"
+                " -mod=/home/steam/steamapps/workshop/content/107410/450814997"
+            )

@@ -1,8 +1,5 @@
-from typing import Optional
-
-
 class WorkshopMod:
-    def __init__(self, mod_id: int, mod_name: Optional[str] = None) -> None:
+    def __init__(self, mod_id: int, mod_name: str) -> None:
         self.mod_id = mod_id
         self.mod_name = mod_name
 

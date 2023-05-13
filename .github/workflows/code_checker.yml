@@ -20,6 +20,9 @@ jobs:
         - name: Lint with flake8
           run: |
             flake8 steam_server_manager --max-line-length=127 --statistics
+        - name: Check mypy
+          run: |
+            mypy steam_server_manager
         - name: Test with pytest
           run: |
             pytest

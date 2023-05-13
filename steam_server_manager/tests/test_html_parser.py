@@ -9,11 +9,8 @@ class TestHtmlModParser:
         with open(os.path.join(dir_path, "test_a3mods.html"), "r") as file:
             raw_html = file.read()
         parser = Arma3HtmlModParser(raw_html)
-        id_list = [
-            workshop_mod.mod_id
-            for workshop_mod in parser.get_mods_list()
-        ]
-        assert id_list == [
+        id_list = parser.get_mods_list().keys()
+        assert list(id_list) == [
             2290838143,
             463939057,
             1208939123,

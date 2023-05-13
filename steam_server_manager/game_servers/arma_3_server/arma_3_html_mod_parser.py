@@ -1,4 +1,4 @@
-from typing import List
+from typing import Dict
 from bs4 import BeautifulSoup, Tag
 
 from steam_server_manager.common.workshopmod import WorkshopMod
@@ -11,24 +11,25 @@ class WrongFileError(Exception):
 class Arma3HtmlModParser:
     def __init__(self, html_raw: str) -> None:
         self.html_raw = html_raw
-        self._mods_list: List[WorkshopMod] = []
+        self._mods_list: Dict[int, WorkshopMod] = {}
         self._parse()
 
-    def get_mods_list(self) -> List[WorkshopMod]:
+    def get_mods_list(self) -> Dict[int, WorkshopMod]:
         return self._mods_list
 
-    def _parse(self):
+    def _parse(self) -> None:
         soup = BeautifulSoup(self.html_raw, "html.parser")
-        if soup.title.text != "Arma 3":
+        if soup.title and soup.title.text != "Arma 3":
             raise WrongFileError("Bad html file")
         html_mods = soup.find_all("tr")
-        self._mods_list = [
-            WorkshopMod(
-                mod_id=self._get_mod_id_from_row(html_mod_row),
+        self._mods_list = {
+            mod_id: WorkshopMod(
+                mod_id=mod_id,
                 mod_name=self._get_mod_name_from_row(html_mod_row),
             )
             for html_mod_row in html_mods
-        ]
+            if (mod_id := self._get_mod_id_from_row(html_mod_row))
+        }
 
     @staticmethod
     def _get_mod_id_from_row(html_row: Tag) -> int:
