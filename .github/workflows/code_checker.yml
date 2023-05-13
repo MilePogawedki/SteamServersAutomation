@@ -22,7 +22,7 @@ jobs:
             flake8 steam_server_manager --max-line-length=127 --statistics
         - name: Check mypy
           run: |
-            mypy steam_server_manager
+            mypy steam_server_manager --ignore-missing-imports
         - name: Test with pytest
           run: |
             pytest

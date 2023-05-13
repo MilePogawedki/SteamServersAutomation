@@ -13,7 +13,7 @@ class WorkshopMod:
     def simplified_mod_name(self) -> str:
         return self.mod_name.translate(
             {
-                "-": "_",
-                " ": "_",
+                ord("-"): "_",
+                ord(" "): "_",
             }
         )
