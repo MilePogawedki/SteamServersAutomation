@@ -8,3 +8,12 @@ class WorkshopMod:
 
     def __repr__(self):
         return str(self)
+
+    @property
+    def simplified_mod_name(self) -> str:
+        return self.mod_name.translate(
+            {
+                "-": "_",
+                " ": "_",
+            }
+        )

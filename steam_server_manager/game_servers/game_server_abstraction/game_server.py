@@ -52,25 +52,24 @@ class SteamGameServer(ABC):
                     mod.mod_id,
                     mods_location,
                 )
-        self._rename_files_to_lowercase(os.path.join(mods_location, "steamapps"))
+        self._rename_files_to_lowercase(os.path.join(mods_location, "steamapps/workshop"))
         self._symlink_all_mods(mods)
 
     @staticmethod
     def _rename_files_to_lowercase(location: str) -> None:
-        os.system("find" + location + " -depth -exec rename 's/(.*)\\/([^\\/]*)/$1\\/\\L$2/' {} \\;")
+        os.system("find " + location + " -depth -exec rename 's/(.*)\\/([^\\/]*)/$1\\/\\L$2/' {} \\;")
 
-    def _symlink_all_mods(self, mods: Dict[int, WorkshopMod]):
+    def _symlink_all_mods(self, mods: Dict[int, WorkshopMod]) -> None:
         local_mods_path = os.path.join(self.app_install_dir, "mods")
         if not(os.path.exists(local_mods_path) and os.path.isdir(local_mods_path)):
             os.mkdir(os.path.join(local_mods_path))
 
         location = "/home/steam/steamapps/workshop/content/107410/"
         for filename in os.listdir(location):
-            os.symlink(
-                os.path.join(location, filename),
-                os.path.join(local_mods_path, mods[int(filename)].mod_name),
-            )
-
+            source = os.path.join(location, filename)
+            target = os.path.join(local_mods_path, mods[int(filename)].simplified_mod_name)
+            self.logger.info("Adding a symlink between from <%s> to <%s>", source, target)
+            os.symlink(source, target)
 
     @abstractmethod
     def prepare_bash_file(self, mods: List[WorkshopMod]) -> None:
