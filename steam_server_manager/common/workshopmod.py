@@ -15,5 +15,7 @@ class WorkshopMod:
             {
                 ord("-"): "_",
                 ord(" "): "_",
+                ord("("): "_",
+                ord(")"): "_",
             }
         )
